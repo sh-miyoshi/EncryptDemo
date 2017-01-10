@@ -3,6 +3,7 @@ require './enc_rand.rb'
 
 MAIN_WINDOW_SIZE_X=640
 MAIN_WINDOW_SIZE_Y=640
+IMAGE_FILE_NAMES=["input.bmp","temp.bmp","result.bmp"]
 
 class ImgWidget < Qt::Widget
 	def initialize
@@ -28,13 +29,15 @@ class MainWidget < Qt::Widget
 	def initialize
 		super
 
+		@seed=0
+
 		images=Array.new
-		fnames=["input.bmp","temp.bmp","result.bmp"]
-		fnames.each do |f|
+		IMAGE_FILE_NAMES.each do |f|
 			img=ImgWidget.new
 			img.load(f)
 			images.push(img)
 		end
+		@cimgs=images
 
 		bt_enc=Qt::PushButton.new('暗号化')
 		bt_dec=Qt::PushButton.new('復号')
@@ -49,10 +52,14 @@ class MainWidget < Qt::Widget
 				end
 			end
 		)
+
+		key_info=Qt::LineEdit.new
+		connect(key_info,SIGNAL("textChanged(QString)"),self,SLOT("set_seed(QString)"))
+
 		layout.add_layout(
 			Qt::HBoxLayout.new() do
 				addWidget(Qt::Label.new("鍵情報:"))
-				addWidget(Qt::LineEdit.new)
+				addWidget(key_info)
 			end
 		)
 		layout.add_layout(
@@ -66,14 +73,25 @@ class MainWidget < Qt::Widget
 		resize(MAIN_WINDOW_SIZE_X,MAIN_WINDOW_SIZE_Y)
 	end
 
+	slots "set_seed(QString)"
+	def set_seed(str)
+		@seed=str.to_i
+	end
+
 	slots "encryption()"
 	def encryption()
-		puts "encrypt"
+		enc=BmpEncrypt.new(@seed)
+		enc.Process(IMAGE_FILE_NAMES[0],IMAGE_FILE_NAMES[1],true)
+		@cimgs[1].load(IMAGE_FILE_NAMES[1])
+		@cimgs[1].update
 	end
 
 	slots "decryption()"
 	def decryption()
-		puts "decrypt"
+		enc=BmpEncrypt.new(@seed)
+		enc.Process(IMAGE_FILE_NAMES[1],IMAGE_FILE_NAMES[2],false)
+		@cimgs[2].load(IMAGE_FILE_NAMES[2])
+		@cimgs[2].update
 	end
 
 end
