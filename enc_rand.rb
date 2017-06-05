@@ -119,9 +119,7 @@ private
 	end
 end
 
-#enc=BmpEncrypt.new(0)
+enc=BmpEncrypt.new(0)
 #start_time = Time.now
-#enc.Process("sample.bmp","temp.bmp",true)
+enc.Process("input.bmp","temp.bmp",true)
 #puts "Time: #{Time.now - start_time}[sec]"
-#enc=BmpEncrypt.new(0)
-#enc.Process("temp.bmp","ret.bmp",false)

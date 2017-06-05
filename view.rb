@@ -39,8 +39,8 @@ class MainWidget < Qt::Widget
 		end
 		@cimgs=images
 
-		bt_enc=Qt::PushButton.new('暗号化')
-		bt_dec=Qt::PushButton.new('復号')
+		bt_enc=Qt::PushButton.new('Encrypt')
+		bt_dec=Qt::PushButton.new('Decrypt')
 		connect(bt_enc,SIGNAL("clicked()"),self,SLOT("encryption()"))
 		connect(bt_dec,SIGNAL("clicked()"),self,SLOT("decryption()"))
 
@@ -58,7 +58,7 @@ class MainWidget < Qt::Widget
 
 		layout.add_layout(
 			Qt::HBoxLayout.new() do
-				addWidget(Qt::Label.new("鍵情報:"))
+				addWidget(Qt::Label.new("Key Information:"))
 				addWidget(key_info)
 			end
 		)
