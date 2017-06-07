@@ -118,8 +118,3 @@ private
 		mput(fp,4,@cirImportant)
 	end
 end
-
-enc=BmpEncrypt.new(0)
-#start_time = Time.now
-enc.Process("input.bmp","temp.bmp",true)
-#puts "Time: #{Time.now - start_time}[sec]"

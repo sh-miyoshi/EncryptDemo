@@ -2,7 +2,7 @@ require 'Qt'
 require './enc_rand.rb'
 
 MAIN_WINDOW_SIZE_X=640
-MAIN_WINDOW_SIZE_Y=640
+MAIN_WINDOW_SIZE_Y=320
 IMAGE_FILE_NAMES=["input.bmp","temp.bmp","result.bmp"]
 
 class ImgWidget < Qt::Widget
@@ -58,7 +58,7 @@ class MainWidget < Qt::Widget
 
 		layout.add_layout(
 			Qt::HBoxLayout.new() do
-				addWidget(Qt::Label.new("Key Information:"))
+				addWidget(Qt::Label.new("Key Information (number):"))
 				addWidget(key_info)
 			end
 		)
@@ -96,7 +96,12 @@ class MainWidget < Qt::Widget
 
 end
 
+# execute an application
 app=Qt::Application.new(ARGV)
 window=MainWidget.new
 window.show
 app.exec
+
+# delete created files
+File.delete(IMAGE_FILE_NAMES[1]) if File.exist?(IMAGE_FILE_NAMES[1])
+File.delete(IMAGE_FILE_NAMES[2]) if File.exist?(IMAGE_FILE_NAMES[2])
