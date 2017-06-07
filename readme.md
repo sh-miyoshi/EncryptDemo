@@ -1,7 +1,7 @@
 # Description
-	暗号化のデモ用プログラム
-	画像を暗号化することで視覚的にわかりやすく暗号化のデモを見せられる
-	共通かぎ暗号のデモとして活用ください
+	This is demo program of encryption.
+	This program can show the demonstration of encryption visually easy to understand by encrypting the image.
+	Please use this program as a demonstration of symmetric key cryptosystem.
 
 # Usage
 	ruby view.rb
